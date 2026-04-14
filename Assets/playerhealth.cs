@@ -2,39 +2,46 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class playerhealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-  public float maxHealth =10;
-  private float health;
-  private bool canReciveDamage;
-         //  private bool canReciveHeal;
-  public float invincibilityTimer = 2;
 
-    public delegate void HealthChangedHandler(float newhealth,float amountChanged);
+    public float maxhealth = 100;
+    private float health;
+    private bool canReceiveDamage = true;
+    public float invincibilitytimer = 2;
+
+    public delegate void HealthChangedHandler(float newHealth, float amountChanged);
     public event HealthChangedHandler OnHealthChanged;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public delegate void HealthInitialised(float newHealth);
+    public event HealthInitialised OnHealthInitialised;
+
+    private void Start()
     {
-        health = maxHealth; 
+        health = maxhealth;
+        OnHealthInitialised?.Invoke(health);
+    }
+
+    public void ReceiveDamage(int amount, Vector3 origin)
+    {
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
+    }
     public void AddDamage(float damage)
     {
-        if (canReciveDamage)
+        if (canReceiveDamage)
         {
             health -= damage;
             OnHealthChanged?.Invoke(health, -damage);
-            canReciveDamage = false;
-            StartCoroutine(InvincibilityTimer(invincibilityTimer, ResetInvincibility));
+            canReceiveDamage = false;
+            StartCoroutine(InvincibilityTimer(invincibilitytimer, ResetInvincibility));
         }
-            Debug.Log(health);
-        }
+        Debug.Log(health);
+    }
 
     IEnumerator InvincibilityTimer(float time, Action callback)
     {
@@ -44,8 +51,7 @@ public class playerhealth : MonoBehaviour
 
     private void ResetInvincibility()
     {
-        canReciveDamage = true;
-        Debug.Log("reset");
+        canReceiveDamage = true;
     }
     public void AddHealth(float healthToAdd)
     {

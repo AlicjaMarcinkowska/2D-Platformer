@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class KillSpike : MonoBehaviour
@@ -15,9 +16,7 @@ public class KillSpike : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //Destroy(collision.gameObject);
-        collision.GetComponent<playerhealth>().AddDamage(damage);
-    }
+    private void OnTriggerEnter2D(Collider2D collision) =>
+        // Destroy(collision.gameObject);
+        collision.GetComponent<PlayerHealth>().AddDamage(damage);
 }
