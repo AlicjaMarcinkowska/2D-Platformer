@@ -11,6 +11,8 @@ public class PlayerMotor : MonoBehaviour
     public float stoppingForce = 5;
     public float speed = 10;
     public float jumpForce = 10;
+
+    public PlayerCoins cm;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -57,5 +59,15 @@ public class PlayerMotor : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         canJump = true;
+    }
+
+    //moje rikitiki do coins
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("coins"))
+        {
+            Destroy(other.gameObject);
+            cm.coinCount++;
+        }
     }
 }
