@@ -106,7 +106,7 @@ TextureImporter:
       name: world_tileset_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 128
         y: 239
         width: 16
         height: 17
