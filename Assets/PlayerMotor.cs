@@ -71,7 +71,7 @@ public class PlayerMotor : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         canJump = true;
-        jumpCount = 0;
+        jumpCount = 2;
     }
 
    
