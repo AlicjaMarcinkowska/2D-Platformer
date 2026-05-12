@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -8,18 +9,21 @@ public class PlayerMotor : MonoBehaviour
     //
     //
     //
-
     Vector2 direction;
+    public float dashForce = 10;
+    public float dashtime = 0.2f;
+    public float acceleration = 10;
     private Rigidbody2D rigidbody2D;
     private bool canJump = true;
     public float maxSpeed = 10;
-    public float stoppingForce = 5;
+    public float stoppingForce = 10;
     public float speed = 10;
     public float jumpForce = 10;
+    private bool isDashing = false;
 
     private int jumpCount = 0;
     public int maxJumpCount = 2;
-   
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -28,8 +32,14 @@ public class PlayerMotor : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        rigidbody2D.AddForce(new Vector2(direction.x * speed, 0));
-
+        
+            rigidbody2D.AddForce(new Vector2(direction.x * speed, 0));
+        
+        if(isDashing)
+        {
+            return;
+        }
+        //Limit max speed
         if (rigidbody2D.linearVelocityX >= maxSpeed)
         {
             rigidbody2D.linearVelocityX = maxSpeed;
@@ -60,10 +70,7 @@ public class PlayerMotor : MonoBehaviour
             rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;
             if (jumpCount >= maxJumpCount)
-            canJump = false;
-            {
                 canJump = false;
-            }
         }
 
     }
@@ -71,8 +78,24 @@ public class PlayerMotor : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         canJump = true;
-        jumpCount = 2;
+        jumpCount = 0;
     }
 
-   
+
+    private void OnDash()
+    {
+
+        isDashing = true;
+        //Debug.Log("Dashing");
+        rigidbody2D.AddForce(new Vector2(direction.x * dashForce, 0), ForceMode2D.Impulse);
+        StartCoroutine(ResetDash(dashtime));
+
+       
+    
+    }
+    IEnumerator ResetDash(float timeToRest)
+        {
+            yield return new WaitForSeconds(timeToRest);
+    isDashing = false;
+        }
 }
