@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class healthpack1 : MonoBehaviour
+public class healthpack : MonoBehaviour
 {
     public float health = 1;
 

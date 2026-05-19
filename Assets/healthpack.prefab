@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1176843041212590378}
   - component: {fileID: 5420054299594105654}
   - component: {fileID: 82746548632278075}
-  - component: {fileID: 6479393012034293381}
+  - component: {fileID: 2548008976679248938}
   m_Layer: 0
   m_Name: healthpack
   m_TagString: Untagged
@@ -126,7 +126,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.13, y: 0.15}
   m_Direction: 0
---- !u!114 &6479393012034293381
+--- !u!114 &2548008976679248938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,4 +138,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8435b757d8ce9bd4291918157b276880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 1
