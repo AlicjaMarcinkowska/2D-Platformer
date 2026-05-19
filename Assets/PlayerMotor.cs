@@ -14,6 +14,7 @@ public class PlayerMotor : MonoBehaviour
     public float dashtime = 0.2f;
     public float acceleration = 10;
     private Rigidbody2D rigidbody2D;
+    private Animator animator;
     private bool canJump = true;
     public float maxSpeed = 10;
     public float stoppingForce = 10;
@@ -24,16 +25,19 @@ public class PlayerMotor : MonoBehaviour
     private int jumpCount = 0;
     public int maxJumpCount = 2;
 
+    private float initXScale;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        initXScale = transform.localScale.x;
     }
     // Update is called once per frame
     private void FixedUpdate()
     {
         
-            rigidbody2D.AddForce(new Vector2(direction.x * speed, 0));
+        rigidbody2D.AddForce(new Vector2(direction.x * speed, 0));
         
         if(isDashing)
         {
@@ -55,7 +59,23 @@ public class PlayerMotor : MonoBehaviour
             rigidbody2D.AddForce(new Vector2(-rigidbody2D.linearVelocityX * stoppingForce, 0));
         }
 
+        if (direction.x != 0)
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
 
+        if(direction.x > 0)
+        {
+            transform.localScale = new Vector3(initXScale, transform.localScale.y, transform.localScale.z);
+        }
+        else if (direction.x < 0)
+        {
+            transform.localScale = new Vector3(-initXScale, transform.localScale.y, transform.localScale.z);
+        }
     }
 
     private void OnMove(InputValue value)

@@ -25,8 +25,23 @@ public class PlayerHealth : MonoBehaviour
 
     public void ReceiveDamage(int amount, Vector3 origin)
     {
+        
     }
-
+    // to ni¿ej to pod znak zapytania :D
+    //public void ReciveDamgae(float amount)
+    //{
+    //    if (!invincibility)
+     //   {
+    //        currentHealth -= amount;
+     //       OnHealthChanged?.Invoke(currentHealth, amount);
+    //        invincibility = true;
+     //       StartCoroutine(ResetInvincibility(3));
+     //   }
+    //    if (currentHealth <= 0)
+    //    {
+    //        currentHealth = 0;
+    //    }
+   // }
     // Update is called once per frame
     void Update()
     {
